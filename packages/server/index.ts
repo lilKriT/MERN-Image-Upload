@@ -19,7 +19,30 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
+  limits: {
+    fileSize: 1024 * 1024,
+  },
+  fileFilter: (req, file, cb) => {
+    checkFileType(file, cb);
+  },
 }).single("myImage"); // apparently this is important. this name here has to be the same as field name in frontend!
+
+const checkFileType = (
+  file: Express.Multer.File,
+  cb: multer.FileFilterCallback
+) => {
+  // Allowed ext
+  const fileTypes = /jpeg|jpg|png|gif/;
+  // Check the extension
+  const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimeType = fileTypes.test(file.mimetype);
+  if (extname && mimeType) {
+    return cb(null, true);
+  } else {
+    cb(new Error("Images only!"));
+  }
+};
 
 // Setup
 const app = express();
@@ -27,7 +50,7 @@ dotenv.config({ path: "../../.env" });
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 // Routes
@@ -39,8 +62,12 @@ app.post("/upload", (req, res) => {
   //   res.send("Uploaded");
   upload(req, res, (err) => {
     if (err) {
+      console.log("Error");
       res.send("error");
     } else {
+      if (req.file === undefined) {
+        console.log("No file");
+      }
       console.log(req.file);
       res.send("test");
     }

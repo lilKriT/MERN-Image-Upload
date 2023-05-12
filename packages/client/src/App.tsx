@@ -20,12 +20,11 @@ function App() {
 
     const formData = new FormData();
     formData.append("myImage", file);
+    const headers = {
+      "Content-Type": "multipart/form-data",
+    };
 
-    const res = await axios.post(url, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const res = await axios.post(url, formData, { headers });
   };
 
   return (

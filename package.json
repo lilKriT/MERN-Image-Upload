@@ -1,4 +1,8 @@
 {
   "name": "MERN Image Upload",
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.5.1",
+  "workspaces": [
+    "packages/client",
+    "packages/server"
+  ]
 }

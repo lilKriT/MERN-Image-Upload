@@ -18,19 +18,21 @@ function App() {
       return;
     }
 
-    const res = await axios.post(url, file);
+    const formData = new FormData();
+    formData.append("myImage", file);
+
+    const res = await axios.post(url, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   };
 
   return (
     <>
       <h1>This is my basic app</h1>
-      <form
-        action={`${url}`}
-        method="POST"
-        encType="multipart/form-data"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <input type="file" name="myImage" onChange={(e) => onFileChange(e)} />
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <input type="file" onChange={(e) => onFileChange(e)} />
         <button>Send</button>
       </form>
     </>

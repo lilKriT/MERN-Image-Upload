@@ -9,3 +9,8 @@
 # Documentation here: https://yarnpkg.com/features/zero-installs
 # !.yarn/cache
 .pnp.*
+
+# Added by lilKriT
+.env
+node_modules/
+packages/server/dist/

@@ -1,8 +1,16 @@
 {
   "name": "MERN Image Upload",
   "packageManager": "yarn@3.5.1",
+  "scripts": {
+    "server": "cd packages/server && yarn dev",
+    "client": "cd packages/client && yarn dev",
+    "both": "concurrently \"yarn server\" \"yarn client\""
+  },
   "workspaces": [
     "packages/client",
     "packages/server"
-  ]
+  ],
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
 }

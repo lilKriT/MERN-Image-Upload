@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import connectDB from "./config/db";
+import colors from "colors";
 
 // Setup
 const app = express();
@@ -14,6 +16,10 @@ app.use(express.json());
 
 // Routes
 
-app.listen(3000, () => {
-  console.log("Server listening");
+// Connecting
+connectDB();
+app.listen(port, () => {
+  console.log(
+    colors.green.underline(`Image Upload listening on port: ${port}`)
+  );
 });

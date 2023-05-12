@@ -27,7 +27,7 @@ dotenv.config({ path: "../../.env" });
 const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 // Routes
@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
   res.send("Working");
 });
 app.post("/upload", (req, res) => {
-  res.send("Uploaded");
+  //   res.send("Uploaded");
   upload(req, res, (err) => {
     if (err) {
       res.send("error");
